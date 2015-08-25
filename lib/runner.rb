@@ -1,3 +1,5 @@
+require 'pry'
+
 require_relative 'messages'
 require_relative 'game'
 
@@ -24,9 +26,17 @@ class Runner
   def get_input
     input = gets.chomp.to_i
     game.get_human_spot(input)
+    if game.bad_spot
+      ask_human_for_new_play
+    end
+  end
+
+  def ask_human_for_new_play
+    messages.bad_input
+    get_input
   end
 
 end
 
 runner = Runner.new
-runner.start_game
+# runner.start_game

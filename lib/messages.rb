@@ -2,7 +2,7 @@ class Messages
   def welcome(board)
     puts "Welcome to my Tic Tac Toe game"
     self.print_board(board)
-    puts "Please select your spot."
+    puts "You are 'O' and the computer is 'X'. Please select your spot."
   end
 
   def print_board(board)
@@ -11,5 +11,9 @@ class Messages
 
   def game_over
     puts "Game over"
+  end
+
+  def bad_input
+    puts "Invalid input. Please try again."
   end
 end
