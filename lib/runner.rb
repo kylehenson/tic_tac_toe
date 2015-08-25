@@ -12,6 +12,7 @@ class Runner
   def start_game
     messages.welcome(game.board)
     until game.game_is_over(game.board) || game.tie(game.board)
+      messages.print_turn_identifier
       get_input
       get_computer_spot
     end
