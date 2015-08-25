@@ -13,19 +13,36 @@ class Runner
     messages.welcome(game.board)
     until game.game_is_over(game.board) || game.tie(game.board)
       get_input
-      if !game.game_is_over(game.board) && !game.tie(game.board)
-        game.eval_board
-      end
-      messages.print_board(game.board)
+      get_computer_spot
     end
-    messages.game_over
+
+    if game.game_is_over(game.board)
+      messages.game_over
+    else
+      messages.game_tie
+    end
   end
 
   def get_input
     input = gets.chomp.to_i
     game.get_human_spot(input)
+    if game.bad_spot
+      ask_human_for_new_play
+    end
   end
 
+  def ask_human_for_new_play
+    messages.bad_input
+    get_input
+  end
+
+  def get_computer_spot
+    if !game.game_is_over(game.board) && !game.tie(game.board)
+      game.eval_board
+      messages.print_computer_spot(game.computer_spot)
+    end
+    messages.print_board(game.board)
+  end
 end
 
 runner = Runner.new
