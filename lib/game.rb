@@ -1,5 +1,5 @@
 class Game
-  attr_reader :board, :computer, :human, :bad_spot
+  attr_reader :board, :computer, :human, :bad_spot, :computer_spot
 
   def initialize
     @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
@@ -19,17 +19,17 @@ class Game
   end
 
   def eval_board
-    spot = nil
-    until spot
+    @computer_spot = nil
+    until @computer_spot
       if @board[4] == "4"
-        spot = 4
-        @board[spot] = @computer
+        @computer_spot = 4
+        @board[@computer_spot] = @computer
       else
-        spot = get_best_move(@board, @computer)
-        if @board[spot] != "X" && @board[spot] != "O"
-          @board[spot] = @computer
+        @computer_spot = get_best_move(@board, @computer)
+        if @board[@computer_spot] != "X" && @board[@computer_spot] != "O"
+          @board[@computer_spot] = @computer
         else
-          spot = nil
+          @computer_spot = nil
         end
       end
     end

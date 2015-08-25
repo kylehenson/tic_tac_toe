@@ -1,5 +1,3 @@
-require 'pry'
-
 require_relative 'messages'
 require_relative 'game'
 
@@ -15,12 +13,14 @@ class Runner
     messages.welcome(game.board)
     until game.game_is_over(game.board) || game.tie(game.board)
       get_input
-      if !game.game_is_over(game.board) && !game.tie(game.board)
-        game.eval_board
-      end
-      messages.print_board(game.board)
+      get_computer_spot
     end
-    messages.game_over
+
+    if game.game_is_over(game.board)
+      messages.game_over
+    else
+      messages.game_tie
+    end
   end
 
   def get_input
@@ -36,7 +36,14 @@ class Runner
     get_input
   end
 
+  def get_computer_spot
+    if !game.game_is_over(game.board) && !game.tie(game.board)
+      game.eval_board
+      messages.print_computer_spot(game.computer_spot)
+    end
+    messages.print_board(game.board)
+  end
 end
 
 runner = Runner.new
-# runner.start_game
+runner.start_game
